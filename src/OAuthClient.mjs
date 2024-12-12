@@ -9,7 +9,7 @@ class OAuthClient {
 
     // Generate the authorization URL
     startAuthFlow() {
-        const authUrl = `${this.authEndpoint}?response_type=code&client_id=${encodeURIComponent(this.clientId)}&redirect_uri=${encodeURIComponent(this.redirectUri)}&scope=${encodeURIComponent("https://www.googleapis.com/auth/userinfo.profile")}&access_type=offline`;
+        const authUrl = `${this.authEndpoint}?response_type=code&client_id=${encodeURIComponent(this.clientId)}&redirect_uri=${encodeURIComponent(this.redirectUri)}&scope=${encodeURIComponent("https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email")}&access_type=offline`;
         return authUrl;
     }
 
@@ -43,7 +43,6 @@ class OAuthClient {
             const data = await response.json();
 
             if (!response.ok) {
-                // Log the full error response for better insight
                 console.error('Error response from token exchange:', data);
                 throw new Error(`Token exchange failed: ${data.error_description || 'Unknown error'}`);
             }
